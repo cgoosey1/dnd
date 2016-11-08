@@ -1,91 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+<head>
+    <style type="text/css">
+        body {
+            overflow:hidden;
+        }
+        div{
+            height:720PX;
+            width:1280PX;
+            text-align:center;
+            border:0px solid silver;
+            display: table-cell;
+            vertical-align:middle;
+            color:#FFFFFF;
+            background-color:#000000;
+            font-weight:bold;
+            font-family:Verdana, Geneva, sans-serif;
+            font-size:40px;
+        }
+    </style>
+    <title>Cast Hello Text</title>
+</head>
+<body>
 
-        <title>Laravel</title>
+<DIV id="message">Talk to me</DIV>
+<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+<script type="text/javascript">
+    window.onload = function() {
+        cast.receiver.logger.setLevelValue(0);
+        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        console.log('Starting Receiver Manager');
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        // handler for the 'ready' event
+        castReceiverManager.onReady = function(event) {
+            console.log('Received Ready event: ' + JSON.stringify(event.data));
+            window.castReceiverManager.setApplicationState("Application status is ready...");
+        };
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
+        // handler for 'senderconnected' event
+        castReceiverManager.onSenderConnected = function(event) {
+            console.log('Received Sender Connected event: ' + event.data);
+            console.log(window.castReceiverManager.getSender(event.data).userAgent);
+        };
+
+        // handler for 'senderdisconnected' event
+        castReceiverManager.onSenderDisconnected = function(event) {
+            console.log('Received Sender Disconnected event: ' + event.data);
+            if (window.castReceiverManager.getSenders().length == 0) {
+                window.close();
             }
+        };
 
-            .full-height {
-                height: 100vh;
-            }
+        // handler for 'systemvolumechanged' event
+        castReceiverManager.onSystemVolumeChanged = function(event) {
+            console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
+                    event.data['muted']);
+        };
+        // create a CastMessageBus to handle messages for a custom namespace
+        window.messageBus =
+                window.castReceiverManager.getCastMessageBus(
+                        'urn:x-cast:com.google.cast.sample.helloworld');
+        // handler for the CastMessageBus message event
+        window.messageBus.onMessage = function(event) {
+            console.log('Message [' + event.senderId + ']: ' + event.data);
+            // display the message from the sender
+            displayText(event.data);
+            // inform all senders on the CastMessageBus of the incoming message event
+            // sender message listener will be invoked
+            window.messageBus.send(event.senderId, event.data);
+        }
+        // initialize the CastReceiverManager with an application status message
+        window.castReceiverManager.start({statusText: "Application is starting"});
+        console.log('Receiver Manager started');
+    };
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+    // utility function to display the text message in the input field
+    function displayText(text) {
+        console.log(text);
+        document.getElementById("message").innerHTML=text;
+        window.castReceiverManager.setApplicationState(text);
+    };
+</script>
+</body>
 </html>
