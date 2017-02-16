@@ -20,4 +20,9 @@ class Quest extends Model
     {
         return $this->hasMany('App\Monster', 'questId');
     }
+
+    public function traps()
+    {
+        return $this->hasMany('App\Trap', 'questId');
+    }
 }

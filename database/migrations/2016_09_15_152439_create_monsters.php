@@ -39,6 +39,8 @@ class CreateMonsters extends Migration
             $table->integer('cha');
             $table->string('skills');
             $table->string('savingThrows');
+            $table->string('damageVulnerabilities');
+            $table->string('damageResistances');
             $table->string('damageImmunities');
             $table->string('conditionImmunities');
             $table->string('senses');

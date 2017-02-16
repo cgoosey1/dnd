@@ -6,6 +6,9 @@
             <button type="button" class="btn btn-default btn-sm pull-right characterModalBtn" data-toggle="modal" data-target="#characterModal">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add Character
             </button>
+            <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#trapModal">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add Trap
+            </button>
         </div>
         <br>
         <div class="row">
@@ -28,7 +31,7 @@
                         <h3 class="panel-title">
                         <span class="glyphicon glyphicon-pencil description-edit" aria-hidden="true"></span> Details</h3>
                     </div>
-                    <form method="post">
+                    <form method="post" action="{{ Request::url() }}">
                     <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                     <div class="panel-body">
                         <div class="description">{!! $details->description !!}</div>
@@ -41,19 +44,39 @@
                 </div>
             </div>
 
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Screens</h3>
-                    </div>
-                    <div class="panel-body">
-                        @foreach ($screens as $screen)
-                            <span class="text-muted screen">{{ $screen->name }}</span>
-                            <span class="glyphicon glyphicon-blackboard screen"  data-id="{{ $screen->id }}" aria-hidden="true"></span><br>
-                        @endforeach
+            @if ($screens->count())
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Screens</h3>
+                        </div>
+                        <div class="panel-body">
+                            @foreach ($screens as $screen)
+                                <span class="text-muted screen">{{ $screen->name }}</span>
+                                <span class="glyphicon glyphicon-blackboard screen" data-id="{{ $screen->id }}" aria-hidden="true"></span><br>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
+
+            @if ($details->traps->count())
+                <div class="col-sm-3" ng-controller="TrapCtrl">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Traps</h3>
+                        </div>
+                        <div class="panel-body">
+                            @foreach ($details->traps as $trap)
+                                <span class="text-muted screen">{{ $trap->name }}</span>
+                                <a href="/trap/delete/{{ $trap->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span></a>
+                                <span class="glyphicon glyphicon-pencil pull-right" role="button" ng-click="editTrap({{ $trap->id }})" data-toggle="modal" data-target="#trapModal" aria-hidden="true"></span>
+                                <br>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
 
         @if ($details->people()->count())
@@ -126,6 +149,9 @@
                                                 <div class="col-sm-2">{{ $class->cha }} ({{ floor(($class->cha - 10)/2) }})</div>
                                             </div>
                                             {!! $class->skills? '<b>Skills: </b>' . $class->skills . '<br>' : '' !!}
+                                            {!! $class->damageVulnerabilities? '<b>Damage Vulnerabilities: </b>' . $class->damageVulnerabilities . '<br>' : '' !!}
+                                            {!! $class->damageResistances? '<b>Damage Resistances: </b>' . $class->damageResistances . '<br>' : '' !!}
+                                            {!! $class->damageImmunities? '<b>Damage Immunities: </b>' . $class->damageImmunities . '<br>' : '' !!}
                                             {!! $class->damageImmunities? '<b>Damage Immunities: </b>' . $class->damageImmunities . '<br>' : '' !!}
                                             {!! $class->conditionImmunities? '<b>Conditional Immunities: </b>' . $class->conditionImmunities . '<br>' : '' !!}
                                             {!! $class->senses? '<b>Senses: </b>' . $class->senses . '<br>' : '' !!}
@@ -154,8 +180,8 @@
 
         $('.screen').click(function () {
             $.get('/ajax/screen/' + $(this).data('id'), function (data) {
-                console.log(data);
-                sendMessage(data);
+                selectMedia(data.audio, data.pic, data.title, data.html);
+                loadMedia();
             });
         });
 
@@ -216,4 +242,5 @@
     </script>
 
     @include('modals.character')
+    @include('modals.trap')
 @stop

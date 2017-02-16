@@ -3,7 +3,7 @@
 <head>
     @include('includes.head')
 </head>
-<body>
+<body ng-app="dnd.controllers" ng-controller="HomeCtrl">
 <div class="container" style="padding-left: 0;padding-right:0;margin-right:0;">
 
         @include('includes.header')

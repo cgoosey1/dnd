@@ -1,0 +1,52 @@
+<header class="modal-header p-none">
+    <button type="button" class="close" ng-click="$dismiss('close')"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">{{ item.name }}</h4>
+</header>
+<section class="modal-body form-horizontal">
+    <div class="row">
+        <div class="col-md-6">Level: </div>
+        <div class="col-md-6">{{ item.level }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">School: </div>
+        <div class="col-md-6">{{ item.school }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Casting Time: </div>
+        <div class="col-md-6">{{ item.casting_time }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Component: </div>
+        <div class="col-md-6">{{ item.components }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Concentration: </div>
+        <div class="col-md-6">{{ item.concentration? 'Yes' : 'No' }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Duration: </div>
+        <div class="col-md-6">{{ item.duration }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Source: </div>
+        <div class="col-md-6">{{ item.source }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Range: </div>
+        <div class="col-md-6">{{ item.range }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Ritual: </div>
+        <div class="col-md-6">{{ item.ritual? 'Yes' : 'No' }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Classes: </div>
+        <div class="col-md-6">{{ item.classes }}</div>
+    </div>
+    <div class="row m-t-m">
+        <div class="col-md-12">{{ item.description }}</div>
+    </div>
+
+</section>
+<footer class="modal-footer">
+</footer>

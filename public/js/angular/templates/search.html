@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default m-b-none search-container" id="">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="input-group c-search">
+                        <input type="text" class="form-control contact-list-search" ng-model="search.value" ng-change="inputChange()" autocomplete="off">
+                        <div class="input-group-addon pointer"><i class="glyphicon glyphicon-search"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="list-group search search-list" ng-attr-id="{{ directiveId + '-search-list' }}">
+                <li class="list-group-item pointer" ng-repeat="item in search.items" ng-click="selectItem(item)">
+                    <div class="col-xs-12 col-sm-12">
+                        <span class="name">{{ item.name }}</span><br/>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

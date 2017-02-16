@@ -20,4 +20,14 @@ class Location extends Model
     {
         return $this->hasMany('App\Monster', 'locationId');
     }
+
+    public function children()
+    {
+        return $this->hasMany('App\Location', 'parent');
+    }
+
+    public function traps()
+    {
+        return $this->hasMany('App\Trap', 'locationId');
+    }
 }

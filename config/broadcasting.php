@@ -55,4 +55,6 @@ return [
 
     ],
 
+    'castAppId' => env('CAST_APP_ID'),
+
 ];
