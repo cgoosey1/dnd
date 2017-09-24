@@ -48,6 +48,7 @@ class CreateMonsters extends Migration
             $table->string('challenge');
             $table->text('action');
             $table->text('abilities');
+            $table->text('reactions');
             $table->timestamps();
         });
 

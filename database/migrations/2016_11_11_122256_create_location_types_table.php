@@ -13,7 +13,7 @@ class CreateLocationTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_type', function (Blueprint $table) {
+        Schema::create('location_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('parent');
@@ -34,7 +34,7 @@ class CreateLocationTypeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('location_type');
+        Schema::drop('location_types');
         Schema::table('locations', function ($table) {
             $table->dropColumn('type');
             $table->dropColumn('parent');

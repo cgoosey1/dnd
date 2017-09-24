@@ -31,7 +31,7 @@ class CreateTrapTable extends Migration
             $table->integer('initiative')->nullable();
             $table->integer('spell')->nullable();
             $table->integer('spellcasterLevel')->nullable();
-            $table->integer('locationId');
+            $table->integer('locationId')->nullable();
             $table->integer('questId')->nullable();
             $table->timestamps();
         });

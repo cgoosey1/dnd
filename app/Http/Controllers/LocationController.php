@@ -27,4 +27,20 @@ class LocationController extends Controller
 
         return redirect('/location/' . $id);
     }
+
+    public function postAdd(Request $request) {
+        $data = array_where($request->all(), function($value) {
+            return $value != '';
+        });
+
+        if ($id = $request->input('id')) {
+            $location = Location::find($id);
+            $location->update($data);
+        } else {
+            $location = Location::create($data);
+        }
+            $location->save();
+
+        return redirect('/location/' . $location->id);
+    }
 }

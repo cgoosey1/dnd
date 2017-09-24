@@ -9,8 +9,12 @@ angular.module('dnd.services').directive('ngSearch', function($http, $timeout, $
         },
         templateUrl: '/js/angular/templates/search.html',
         link: function(scope, elem, attrs) {
+            scope.type = '';
             attrs.$observe('id', function(value) {
                 scope.directiveId = value;
+            });
+            attrs.$observe('type', function(value) {
+                scope.type = value;
             });
             elem.find('#' + scope.directiveId + '-search-list').hide;
 
@@ -40,17 +44,24 @@ angular.module('dnd.services').directive('ngSearch', function($http, $timeout, $
                 }
 
                 inputChangedPromise = $timeout(function() { search(scope); },500);
-            }
+            };
+            scope.clearItems = function() {
+                scope.search.items = [];
+            };
 
             search = function(scope) {
-                if (scope.search.value.length > 2 && scope.search.value != scope.search.oldValue)
-                {
-                    scope.search.id = scope.search.value;
-                    $http.get('/search?keywords=' + encodeURI(scope.search.value))
-                        .success(function (data, status, headers, config) {
-                            scope.search.items = data;
-                            elem.find('#' + scope.directiveId + '-search-list').show();
-                        });
+                if (scope.search != undefined) {
+                    if (scope.search.value.length > 2 && scope.search.value != scope.search.oldValue) {
+                        scope.search.id = scope.search.value;
+                        $http.get('/search?type=' + encodeURI(scope.type) + '&keywords=' + encodeURI(scope.search.value))
+                            .success(function (data, status, headers, config) {
+                                scope.search.items = data;
+                                elem.find('#' + scope.directiveId + '-search-list').show();
+                            });
+                    }
+                    else {
+                        scope.search.items = [];
+                    }
                 }
             };
         }

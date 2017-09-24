@@ -7,7 +7,7 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add Character
             </button>
             <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#trapModal">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add Trap
+                <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Add Trap
             </button>
         </div>
         <br>
@@ -115,11 +115,12 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <b>{{ $monster->name }}</b> {{ $class->name != $monster->name? '(' . $class->name . ')' : '' }}
+                                        - <span class="hp{{ $monster->id }}">{{ $monster->hp }}</span>hp
                                         <span class="glyphicon glyphicon-plus monsterExpand" aria-hidden="true" data-monster-id="{{ $monster->id }}"></span><br>
                                         <span>{!! $monster->description !!}</span>
                                         <div class="well hidden" id="monster{{ $monster->id }}">
                                             <label for="hpModifer" class="control-label"><b>HP:</b></label>
-                                            <span id="hp{{ $monster->id }}">{{ $monster->hp }}</span>
+                                            <span class="hp{{ $monster->id }}">{{ $monster->hp }}</span>
                                             <span class="col-sm-3 input-group pull-right">
                                                 <div class="input-group-addon">-</div>
                                                 <input type="number" name="hpModifer" data-monster-id="{{ $monster->id }}" class="form-control input-sm hpModifer">
@@ -159,6 +160,7 @@
                                             {!! $class->challenge? '<b>Challenge: </b>' . $class->challenge . '<br>' : '' !!}
                                             {!! $class->abilities? '<b>Abilities</b><br>' . nl2br($class->abilities) . '<br>' : '' !!}
                                             {!! $class->action? '<b>Actions</b><br>' . nl2br($class->action) . '<br>' : '' !!}
+                                            {!! $class->reactions? '<b>Reactions</b><br>' . nl2br($class->reactions) . '<br>' : '' !!}
                                         </div>
                                     </div>
                                 </div>
@@ -224,9 +226,9 @@
             if(e.keyCode == 13)
             {
                 var monsterId = $(this).data('monster-id');
-                var hp = $('#hp' + monsterId).text() - $(this).val();
+                var hp = parseInt($('.hp' + monsterId).eq(0).text()) - $(this).val();
                 $(this).val('');
-                $('#hp' + monsterId).html(hp);
+                $('.hp' + monsterId).html(hp);
                 $.get('/monster/' + monsterId + '/hp/' + hp);
             }
         });
@@ -234,13 +236,14 @@
             var monsterId = $(this).data('monster-id');
             $.getJSON('/monster/' + monsterId + '/hp/reset', function(data) {
                 if (data.status == 'success') {
-                    $('#hp' + monsterId).html(data.hp);
+                    $('.hp' + monsterId).html(data.hp);
                 }
             });
         });
     });
     </script>
 
+    @include('modals.location')
     @include('modals.character')
     @include('modals.trap')
 @stop

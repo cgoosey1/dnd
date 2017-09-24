@@ -21,10 +21,20 @@
                         </li>
                     @endif
                 @endforeach
+                <li>
+                    <a data-toggle="modal" data-target="#locationModal" role="button">
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Add Location
+                    </a>
+                </li>
+                <li>
+                    <a href="/map">
+                        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Map
+                    </a>
+                </li>
             </ul>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ng-search id="headerSearch" search-action="spellModal" class="navbar-form navbar-right" />
+            <ng-search id="headerSearch" search-action="searchAction" class="navbar-form navbar-right" />
         </div>
     </div>
 </nav>

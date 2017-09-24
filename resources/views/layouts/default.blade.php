@@ -10,7 +10,9 @@
 
     <div class="container-fluid">
         <div class="row">
-            @include('includes.sidebar')
+            @section('sidebar')
+                @include('includes.sidebar')
+            @show
 
             @yield('content')
 

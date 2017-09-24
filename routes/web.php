@@ -21,7 +21,12 @@ Route::get('/', function () {
 });
 
 Route::get('/location/{id}', 'LocationController@getIndex');
+Route::post('/location/add', 'LocationController@postAdd');
 Route::post('/location/{id}', 'LocationController@postIndex');
+
+Route::get('/map', 'MapController@getIndex');
+Route::post('/map/add', 'MapController@postAdd');
+Route::get('/map/delete/{id}', 'MapController@getDelete');
 
 Route::post('/trap/add', 'TrapController@postIndex');
 Route::get('/trap/delete/{id}', 'TrapController@getDelete');

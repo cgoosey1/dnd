@@ -3,7 +3,7 @@
         @foreach ($details->traps as $trap)
         {{ $trap->id }}: {
                 id: {{ $trap->id }},
-                locationId: {{ $trap->locationId }},
+                locationId: {{ $trap->locationId ?: 'null' }},
                 questId: {{ $trap->questId ?: 'null' }},
                 name: "{{ $trap->name }}",
                 type: "{{ $trap->type }}",
@@ -136,7 +136,7 @@
                     <div class="form-group">
                         <label for="name">Spell</label>
                         <input type="hidden" name="spell" value="@{{ trap.spellId }}" class="form-control">
-                        <ng-search search-action="fillSpellId" id="trapModal" />
+                        <ng-search search-action="fillSpellId" type="Spell" id="trapSpellSearch" />
                     </div>
 
                     <div class="form-group">

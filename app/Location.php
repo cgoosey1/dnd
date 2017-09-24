@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    protected $fillable = ['name', 'description', 'type', 'parent'];
+
     public function buildings()
     {
         return $this->hasMany('App\Building', 'locationId');

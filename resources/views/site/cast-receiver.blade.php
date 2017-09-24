@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body {
             overflow:hidden;
         }
-        div{
+        div#message {
             height:720PX;
             width:1280PX;
             text-align:center;

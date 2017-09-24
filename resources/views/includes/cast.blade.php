@@ -1,6 +1,6 @@
 <script type="text/javascript" src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 <script type="text/javascript">
-    var applicationID = '{{ config('castAppId') }}';
+    var applicationID = '{{ config('broadcasting.castAppId') }}';
     var namespace = 'urn:x-cast:dnd.screens';
     /**
      * Cast initialization timer delay
