@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 |
 */
 
-
 Route::get('/', function () {
     $locations = \App\Location::all();
     $location = $locations->first();
@@ -32,6 +31,8 @@ Route::post('/trap/add', 'TrapController@postIndex');
 Route::get('/trap/delete/{id}', 'TrapController@getDelete');
 
 Route::get('/search', 'SearchController@getIndex');
+
+Route::get('/character', 'CharacterController@getIndex');
 
 Route::get('/quest/{id}', function ($id) {
 
