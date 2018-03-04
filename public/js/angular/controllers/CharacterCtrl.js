@@ -13,12 +13,14 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                 alignment: "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order.",
                 size: "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.",
                 speed: 25,
+                proficiencies: ['Battleaxe', 'Handaxe', 'Throwing Hammer', 'Warhammer'],
                 languages: ['Common', 'Dwarvish'],
                 subRaces: [
                     {
                         id: 2,
                         name: 'Hill Dwarf',
                         abilityScoreIncrease: {wisdom: 1},
+                        proficiencies: ['Battleaxe', 'Handaxe', 'Throwing Hammer', 'Warhammer'],
                         traits: [
                             {
                                 id: 7,
@@ -31,6 +33,7 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                     {
                         id: 3,
                         name: 'Mountain Dwarf',
+                        proficiencies: ['Light Armor', 'Medium Armor'],
                         abilityScoreIncrease: {strength: 2},
                         traits: [
                             {
@@ -38,9 +41,6 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                                 name: 'Dwarven Armor Training',
                                 details: "You have proficiency with light and medium armor.",
                                 showInFeatures: 0,
-                                attributes: {
-                                    proficiencies: ['Light Armor', 'Medium Armor']
-                                }
                             }
                         ]
                     }
@@ -69,9 +69,6 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                         name: 'Dwarven Combat Training',
                         showInFeatures: 0,
                         details: "You have proficiency with the battleaxe, handaxe, throwing hammer, and warhammer.",
-                        attributes: {
-                            proficiencies: ['Battleaxe', 'Handaxe', 'Throwing Hammer', 'Warhammer']
-                        }
                     },
                     {
                         id: 5,
@@ -86,6 +83,13 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                         details: "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
                     }
 
+                ],
+                options: [
+                    {
+                        details: 'You gain proficiency with the artisan\'s tools of your choice',
+                        options: ['Smith\'s Tools', 'Brewer\'s Supplies', 'Mason\'s Tools'],
+                        key: 'proficiencies'
+                    }
                 ]
             },
             {
@@ -97,20 +101,19 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                 size: "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.",
                 speed: 30,
                 languages: ['Common', 'Elvish'],
+                proficiencies: [],
                 subRaces: [
                     {
                         id: 5,
                         name: 'High Elf',
                         abilityScoreIncrease: {intelligence: 1},
+                        proficiencies: ['Longsword', 'Shortsword', 'Shortbow', 'Longbow'],
                         traits: [
                             {
                                 id: 12,
                                 name: 'Elf Weapon Training',
                                 details: "You have proficiency with the longsword, shortsword, shortbow, and longbow.",
                                 showInFeatures: 0,
-                                attributes: {
-                                    proficiencies: ['Longsword', 'Shortsword', 'Shortbow', 'Longbow']
-                                }
                             },
                             {
                                 id: 13,
@@ -124,21 +127,31 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                                 details: "You can speak, read, and write one extra language of your choice.",
                                 showInFeatures: 0
                             }
+                        ],
+                        options: [
+                            {
+                                details: 'You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it',
+                                options: ["Acid Splash", "Blade Ward", "Chill Touch", "Dancing Lights", "Fire Bolt", "Friends", "Light", "Mage Hand", "Mending", "Message", "Minor Illusion", "Poison Spray", "Prestidigitation", "Ray of Frost", "Shocking Grasp", "True Strike"],
+                                key: 'spells.cantrips'
+                            },
+                            {
+                                details: 'You can speak, read, and write one extra language of your choice',
+                                options: ["Common", "Dwarvish", "Elvish", "Giant", "Gnomish", "Goblin", "Halfling", "Orc", "Abyssal", "Celestial", "Deep Speech", "Draconic", "Infernal", "Aquan", "Auran", "Ignan", "Terran", "Sylvan", "Undercommon"],
+                                key: 'languages'
+                            }
                         ]
                     },
                     {
                         id: 6,
                         name: 'Wood Elf',
                         abilityScoreIncrease: {wisdom: 1},
+                        proficiencies: ['Longsword', 'Shortsword', 'Shortbow', 'Longbow'],
                         traits: [
                             {
                                 id: 12,
                                 name: 'Elf Weapon Training',
                                 details: "You have proficiency with the longsword, shortsword, shortbow, and longbow.",
-                                showInFeatures: 0,
-                                attributes: {
-                                    proficiencies: ['Longsword', 'Shortsword', 'Shortbow', 'Longbow']
-                                }
+                                showInFeatures: 0
                             },
                             {
                                 id: 15,
@@ -161,6 +174,7 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                         id: 7,
                         name: 'Dark Elf (Drow)',
                         abilityScoreIncrease: {charisma: 1},
+                        proficiencies: ['Rapiers', 'Shortsword', 'Hand Crossbows'],
                         traits: [
                             {
                                 id: 17,
@@ -178,7 +192,7 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                                 id: 19,
                                 name: 'Drow Magic',
                                 details: "You know the dancing lights cantrip. When you reach 3rd level, you can cast the faerie fire spell once per day. When you reach 5th level, you can also cast the darkness spell once per day. Charisma is your spellcasting ability for these spells.",
-                                showInFeatures: 0,
+                                showInFeatures: 1,
                                 attributes: {
                                     spells: {
                                         cantrips: ['Dancing Lights']
@@ -189,10 +203,7 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                                 id: 20,
                                 name: 'Drow Weapon Training',
                                 details: "You have proficiency with rapiers, shortswords, and hand crossbows.",
-                                showInFeatures: 0,
-                                attributes: {
-                                    proficiencies: ['Rapiers', 'Shortsword', 'Hand Crossbows']
-                                }
+                                showInFeatures: 0
                             }
                         ]
                     }
@@ -239,61 +250,60 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                 savingThrowProficiencies: ['Strength', 'Constitution'],
                 skillsAllowed: 2,
                 skills: ['Animal Handling', 'Athletics', 'Intimidation', 'Nature', 'Perception', 'Survival'],
-                equipmentChoices: [
+                selectedSkills: [],
+                options: [
                     {
-                        type: 'weapon',
-                        options: ['Greataxe', 'Any Martial Weapon']
+                        details: 'Chose a weapon',
+                        options: ['Greataxe', 'Any Martial Weapon'],
+                        key: 'weapons'
                     },
                     {
-                        type: 'weapon',
-                        options: ['Two Hand Axes', 'Any Simple Weapon']
+                        details: 'Chose a weapon',
+                        options: ['Two Hand Axes', 'Any Simple Weapon'],
+                        key: 'weapons'
                     }
                 ],
+                features: [],
                 levels: {
                     1: {
                         attributes: {
-                            level: 1,
-                            proficiencies: 2,
+                            proficiencyBonus: 2,
                             rages: 2,
-                            rageDamage: 2,
-                            features: [
-                                {
-                                    id: 21,
-                                    name: 'Rage',
-                                    showInFeatures: 0,
-                                    details: "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren't wearing heavy armor: You have advantage on Strength checks and Strength saving throws. When you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian, as shown in the Rage Damage column of the Barbarian table. You have resistance to bludgeoning, piercing, and slashing damage. If you are able to cast spells, you can't cast them or concentrate on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action. Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian table, you must finish a long rest before you can rage again."
-                                },
-                                {
-                                    id: 22,
-                                    name: 'Unarmored Defence',
-                                    showInFeatures: 1,
-                                    details: "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit."
-                                }
-                            ]
-                        }
+                            rageDamage: 2
+                        },
+                        features: [
+                            {
+                                id: 21,
+                                name: 'Rage',
+                                showInFeatures: 0,
+                                details: "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren't wearing heavy armor: You have advantage on Strength checks and Strength saving throws. When you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian, as shown in the Rage Damage column of the Barbarian table. You have resistance to bludgeoning, piercing, and slashing damage. If you are able to cast spells, you can't cast them or concentrate on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action. Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian table, you must finish a long rest before you can rage again."
+                            },
+                            {
+                                id: 22,
+                                name: 'Unarmored Defence',
+                                showInFeatures: 1,
+                                details: "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit."
+                            }
+                        ]
                     },
                     2: {
-                        attributes: {
-                            level: 2,
-                            features: [
-                                {
-                                    id: 23,
-                                    name: 'Reckless Attack',
-                                    showInFeatures: 1,
-                                    details: "Starting at 2nd level, you can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn."
-                                },
-                                {
-                                    id: 24,
-                                    name: 'Danger Sense',
-                                    showInFeatures: 1,
-                                    details: "At 2nd level, you gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can't be blinded, deafened, or incapacitated."
-                                }
-                            ]
-                        }
+                        features: [
+                            {
+                                id: 23,
+                                name: 'Reckless Attack',
+                                showInFeatures: 1,
+                                details: "Starting at 2nd level, you can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn."
+                            },
+                            {
+                                id: 24,
+                                name: 'Danger Sense',
+                                showInFeatures: 1,
+                                details: "At 2nd level, you gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can't be blinded, deafened, or incapacitated."
+                            }
+                        ]
                     },
                     3: {
                         attributes: {
-                            level: 3,
                             rages: 3
                         }
                     }
@@ -357,61 +367,522 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                     ]
                 }
             }
+        ],
+        levels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+        abilities: ['Strength', 'Dexterity', 'Constitution', 'Wisdom', 'Intelligence', 'Charisma'],
+        skills: [
+            { name: "Acrobatics", ability: "dexterity" },
+            { name: "Animal Handling", ability: "wisdom" },
+            { name: "Arcana", ability: "intelligence" },
+            { name: "Athletics", ability: "strength" },
+            { name: "Deception", ability: "charisma" },
+            { name: "History", ability: "intelligence" },
+            { name: "Insight", ability: "wisdom" },
+            { name: "Intimidation", ability: "charisma" },
+            { name: "Investigation", ability: "intelligence" },
+            { name: "Medicine", ability: "wisdom" },
+            { name: "Nature", ability: "intelligence" },
+            { name: "Perception", ability: "wisdom" },
+            { name: "Performance", ability: "charisma" },
+            { name: "Persuasion", ability: "charisma" },
+            { name: "Religion", ability: "intelligence" },
+            { name: "Sleight of Hand", ability: "dexterity" },
+            { name: "Stealth", ability: "dexterity" },
+            { name: "Survival", ability: "wisdom" }
+        ],
+        shortAbilities: {
+            strength: 'Str',
+            dexterity: 'Dex',
+            constitution: 'Con',
+            wisdom: 'Wis',
+            intelligence: 'Int',
+            charisma: 'Cha'
+        },
+        alignments: [
+            "Lawful good",
+            "Neutral good",
+            "Chaotic good",
+            "Lawful neutral",
+            "True neutral",
+            "Chaotic neutral",
+            "Lawful evil",
+            "Neutral evil",
+            "Chaotic evil"
         ]
     };
 
     var loadData = function() {
         $scope.races = data.races;
         $scope.classes = data.classes;
+        $scope.levels = data.levels;
+        $scope.level = "1";
+        $scope.abilities = data.abilities;
+        $scope.options = [];
+        $scope.skills = data.skills;
+        $scope.shortAbilities = data.shortAbilities;
+        $scope.alignments = data.alignments;
     };
     loadData();
 
     var getDataById = function (data, id) {
-        var race;
+        var data;
         angular.forEach(data, function (value) {
             if (value.id == id) {
-                race = value;
+                data = value;
                 return false;
             }
         });
 
-        return race;
+        return data;
+    };
+
+    /**
+     * To generate stats we roll 4d6 and remove the lowest number, this function does this 6 times to generate 6 stat
+     * rolls
+     */
+    $scope.rollDice = function() {
+        var rolls = [];
+        for (var i = 0; i < 6; i++) {
+            var lowestRoll = 6;
+            var total = 0;
+            for (var a = 0; a < 4; a++) {
+                var roll = Math.round(Math.random() * 6);
+                if (roll < lowestRoll) {
+                    lowestRoll = roll;
+                }
+                total += roll;
+            }
+
+            rolls.push({value: (total - lowestRoll), ability: $scope.abilities[i]});
+        }
+
+        $scope.abilityRolls = rolls;
+        $scope.updateAbilities();
+    };
+
+    $scope.skillDisabled = function(skill) {
+        return $scope.character.proficientSkills.indexOf(skill) == -1
+            && $scope.character.proficientSkills.length >= $scope.class.skillsAllowed;
+    };
+
+
+    $scope.getName = function(data, id) {
+        return getDataById(data, id).name;
+    };
+
+    $scope.getFeatureString = function () {
+        var featureString = '';
+        $scope.character.features.forEach(function(feature) {
+            featureString += feature.name + ' - ' + feature.details + "\n\n";
+        });
+
+        return featureString;
+    };
+
+    $scope.getProficienciesString = function () {
+        var string = '';
+        if ($scope.character.languages.length) {
+            string += 'Languages: ' + $scope.character.languages.join(', ') + "\n\n"
+        }
+        if ($scope.character.proficiencies.length) {
+            string += 'Proficiencies: ' + $scope.character.proficiencies.join(', ')
+        }
+
+        return string;
+    };
+
+    $scope.getPassivePerception = function () {
+        return 10 + parseInt($scope.getSkillModifier({name: 'Perception', ability: 'wisdom'}));
+    };
+
+    $scope.getHitDice = function () {
+        var classData = vm.getClass();
+
+        if (classData) {
+            return '1d' + vm.getClass().hitDice;
+        }
+
+        return '';
+    };
+
+    $scope.getAbilityScoreIncrease = function(ability) {
+        ability = ability.toLowerCase();
+        var race = vm.getRace();
+        var subRace = vm.getSubRace();
+        var value = 0;
+
+        if (race && race.abilityScoreIncrease[ability]) {
+            value += race.abilityScoreIncrease[ability];
+        }
+
+        if (subRace && subRace.abilityScoreIncrease[ability]) {
+            value += subRace.abilityScoreIncrease[ability];
+        }
+
+        return value;
+    };
+
+    $scope.getAbilityModifier = function (value) {
+        return Math.floor((value - 10) / 2);
+    };
+
+    $scope.getSavingThrowModifier = function (ability) {
+        var value = $scope.getAbilityModifier($scope.character[ability.toLowerCase()]);
+
+        if ($scope.character.savingThrowProficiencies.indexOf(ability) > -1) {
+            value += $scope.character.proficiencyBonus;
+        }
+
+        return (value > 0? '+' : '') + value;
+    };
+
+    $scope.getSkillModifier = function (skill) {
+        var value = $scope.getAbilityModifier($scope.character[skill.ability]);
+
+        if ($scope.character.proficientSkills.indexOf(skill.name) > -1) {
+            value += $scope.character.proficiencyBonus;
+        }
+
+        return (value > 0? '+' : '') + value;
     };
 
     $scope.updateRace = function () {
-        $scope.character.race = getDataById(data.races, $scope.raceId);
+        $scope.character.race.id = $scope.raceId;
+        var race = vm.getRace();
+        $scope.character.race.subRaceId = 0;
+        $scope.character.speed = race.speed;
+
+        $scope.subRaces = getDataById(data.races, $scope.raceId).subRaces;
+        vm.generateCharacter();
+    };
+
+    $scope.updateSubRace = function () {
+        $scope.character.race.subRaceId = $scope.subRaceId;
+        vm.generateCharacter();
     };
 
     $scope.updateClass = function () {
-        $scope.character.class = getDataById(data.classes, $scope.classId);
+        $scope.character.class.id = $scope.classId;
+        var classData = vm.getClass();
+
+        $scope.class = {
+            skills: classData.skills,
+            skillsAllowed: classData.skillsAllowed,
+
+        };
+        $scope.class.skills = classData.skills;
+        $scope.class.skillsAllowed = classData.skillsAllowed;
+
+        $scope.character.savingThrowProficiencies = classData.savingThrowProficiencies;
+        $scope.updateLevel();
+
+        vm.generateCharacter();
     };
 
-    $scope.displayCharacter = function () {
-        return JSON.stringify($scope.character, null, "  ");
+    $scope.updateLevel = function() {
+        var classData = vm.getClass();
+        $scope.character.class.level = $scope.level;
+        angular.forEach(classData.levels, function (levelData, level) {
+            if ($scope.level >= level) {
+                angular.forEach(levelData.attributes, function (value, attribute) {
+                    $scope.character[attribute] = value;
+                });
+            }
+        });
+
+        vm.generateCharacter();
     };
 
+    $scope.updateAbilities = function () {
+        $scope.abilityRolls.forEach(function (ability) {
+            var type = ability.ability.toLowerCase();
+
+            if (type) {
+                var value = ability.value;
+                value += $scope.getAbilityScoreIncrease(type);
+
+                $scope.character[type] = value;
+            }
+        });
+    };
+
+    $scope.updateSkill = function(skill) {
+        var index = $scope.character.proficientSkills.indexOf(skill);
+        if (index > -1) {
+            $scope.character.proficientSkills.splice(index, 1);
+        }
+        else if ($scope.character.proficientSkills.length < $scope.class.skillsAllowed) {
+            $scope.character.proficientSkills.push(skill);
+        }
+    };
+
+    vm.getRace = function () {
+        if ($scope.character.race.id) {
+            return getDataById($scope.races, $scope.character.race.id);
+        }
+
+        return null;
+    };
+
+    vm.getSubRace = function () {
+        if ($scope.character.race.subRaceId) {
+            return getDataById($scope.subRaces, $scope.character.race.subRaceId);
+        }
+
+        return null;
+    };
+
+    vm.getClass = function () {
+        if ($scope.character.class.id) {
+            return getDataById($scope.classes, $scope.character.class.id);
+        }
+
+        return null;
+    };
+
+    vm.generateCharacter = function () {
+        vm.generateProficiencies();
+        vm.generateLanguages();
+        vm.generateFeatures();
+        vm.generateOptions();
+        $scope.updateOptions();
+    };
+
+    vm.generateProficiencies = function() {
+        var proficiencies = [];
+        var race = vm.getRace();
+        var subRace = vm.getSubRace();
+        var classData = vm.getClass();
+
+
+        if (classData) {
+            proficiencies = proficiencies.concat(classData.proficiencies);
+        }
+        if (race) {
+            proficiencies = proficiencies.concat(race.proficiencies);
+        }
+        if (subRace) {
+            proficiencies = proficiencies.concat(subRace.proficiencies);
+        }
+
+        $scope.character.proficiencies = proficiencies;
+    };
+
+    vm.generateLanguages = function () {
+        var languages = [];
+        var race = vm.getRace();
+
+        if (race) {
+            languages = languages.concat(race.languages);
+        }
+
+        $scope.character.languages = languages;
+    };
+
+    vm.generateFeatures = function () {
+        var features = [];
+        var race = vm.getRace();
+        var subRace = vm.getSubRace();
+        var classData = vm.getClass();
+
+        if (race) {
+            race.traits.forEach(function (trait) {
+                if (trait.showInFeatures) {
+                    features.push(trait);
+                }
+            });
+        }
+
+        if (subRace) {
+            subRace.traits.forEach(function (trait) {
+                if (trait.showInFeatures) {
+                    features.push(trait);
+                }
+            });
+        }
+
+        if (classData && $scope.character.class.level) {
+            angular.forEach(classData.levels, function (levelData, level) {
+                if (level <= $scope.character.class.level) {
+                    levelData.features.forEach(function(feature) {
+                        if (feature.showInFeatures) {
+                            features.push(feature);
+                        }
+                    });
+                }
+            });
+        }
+
+        $scope.character.features = features;
+    };
+
+    /* Todo: Handle spells key */
+    $scope.updateOptions = function () {
+        $scope.options.forEach(function (option) {
+            if (option.value != undefined) {
+                $scope.character[option.key] = $scope.character[option.key].concat([option.options[option.value]]);
+            }
+        });
+    };
+
+    vm.generateOptions = function () {
+        var options = [];
+
+        var race = vm.getRace();
+        var subRace = vm.getSubRace();
+        var classData = vm.getClass();
+
+        if (race && race.options) {
+            race.options.forEach(function (option) {
+                option.value = vm.findOptionValue(option);
+                options.push(option);
+            })
+        }
+
+        if (subRace && subRace.options) {
+            subRace.options.forEach(function (option) {
+                option.value = vm.findOptionValue(option);
+                options.push(option);
+            })
+        }
+
+        if (classData && classData.options) {
+            classData.options.forEach(function (option) {
+                option.value = vm.findOptionValue(option);
+                options.push(option);
+            })
+        }
+
+        $scope.options = options;
+    };
+
+    vm.findOptionValue = function (option) {
+        var value = null
+        $scope.options.forEach(function (currentOption) {
+            if (currentOption.details == option.details
+                && JSON.stringify(currentOption.options) == JSON.stringify(option.options))
+            {
+                value = currentOption.value;
+            }
+        });
+
+        return value;
+    };
+
+
+    // $scope.character = {
+    //     name: '',
+    //     race: {
+    //         id: 0,
+    //         name: '',
+    //         subRace: {},
+    //         traits: []
+    //     },
+    //     class: {
+    //         id: 0,
+    //         name: '',
+    //         features: [],
+    //         proficiencies: [],
+    //         selectedSkills: []
+    //     },
+    //     level: 0,
+    //     background: {
+    //         id: 0,
+    //         personalityTrait: 0,
+    //         ideals: 0,
+    //         bonds: 0,
+    //         flaws: 0,
+    //         equipment: [],
+    //         features: []
+    //     },
+    //     playerName: '',
+    //     alignment: '',
+    //     strength: 0,
+    //     dexterity: 0,
+    //     constitution: 0,
+    //     intelligence: 0,
+    //     wisdom: 0,
+    //     charisma: 0,
+    //     proficiencyBonus: 0,
+    //     savingThrowsProficiencies: [],
+    //     skills: {
+    //         strength: {
+    //             athletics: 0
+    //         },
+    //         dexterity: {
+    //             acrobatics: 0,
+    //             sleightOfHand: 0,
+    //             stealth: 0
+    //         },
+    //         intelligence: {
+    //             arcana: 0,
+    //             history: 0,
+    //             investigation: 0,
+    //             nature: 0,
+    //             religion: 0
+    //         },
+    //         wisdom: {
+    //             animalHandling: 0,
+    //             insight: 0,
+    //             medicine: 0,
+    //             perception: 0,
+    //             survival: 0
+    //         },
+    //         charisma: {
+    //             deception: 0,
+    //             intimidation: 0,
+    //             perception: 0,
+    //             persuasion: 0
+    //         }
+    //     },
+    //     skillsProficiencies: [],
+    //     ac: 0,
+    //     speed: 0,
+    //     hpMax: 0,
+    //     hitDice: '',
+    //     languages: [],
+    //     proficiencies: [],
+    //     weapons: [
+    //         {
+    //             id: 0,
+    //             name: '',
+    //             attackBonus: 0,
+    //             damage: '',
+    //             damageBonus: 0,
+    //             damageType: '',
+    //             special: ''
+    //         }
+    //     ],
+    //     equipment: [
+    //         {
+    //             name: '',
+    //             special: ''
+    //         }
+    //     ],
+    //     traits: [],
+    //     features: [],
+    //     additionalFeatures: [],
+    //     spells: {
+    //         cantrips: []
+    //     }
+    // };
     $scope.character = {
-        name: '',
+        characterName: '',
         race: {
             id: 0,
-            name: '',
-            subRace: '',
-            traits: []
+            subRaceId: 0
         },
         class: {
             id: 0,
-            name: '',
-            features: []
+            level: 1,
+            archetypeId: 0
         },
-        level: 0,
         background: {
             id: 0,
             personalityTrait: 0,
             ideals: 0,
             bonds: 0,
-            flaws: 0,
-            equipment: [],
-            features: []
+            flaws: 0
         },
         playerName: '',
         alignment: '',
@@ -422,42 +893,11 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
         wisdom: 0,
         charisma: 0,
         proficiencyBonus: 0,
-        savingThrowsProficiencies: [],
-        skills: {
-            strength: {
-                athletics: 0
-            },
-            dexterity: {
-                acrobatics: 0,
-                sleightOfHand: 0,
-                stealth: 0
-            },
-            intelligence: {
-                arcana: 0,
-                history: 0,
-                investigation: 0,
-                nature: 0,
-                religion: 0
-            },
-            wisdom: {
-                animalHandling: 0,
-                insight: 0,
-                medicine: 0,
-                perception: 0,
-                survival: 0
-            },
-            charisma: {
-                deception: 0,
-                intimidation: 0,
-                perception: 0,
-                persuasion: 0
-            }
-        },
-        skillsProficiencies: [],
+        savingThrowProficiencies: [],
+        proficientSkills: [],
         ac: 0,
         speed: 0,
         hpMax: 0,
-        hitDice: '',
         languages: [],
         proficiencies: [],
         weapons: [
@@ -477,11 +917,12 @@ angular.module('dnd.controllers').controller("CharacterCtrl", function($scope) {
                 special: ''
             }
         ],
-        traits: [],
         features: [],
-        additionalFeatures: [],
-        spells: {
-            cantrips: []
-        }
-    }
+        'spells.cantrips': []
+    };
+
+    // $scope.raceId = 1;
+    // $scope.classId = 1;
+    // $scope.updateRace();
+    // $scope.updateClass();
 });
